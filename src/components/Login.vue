@@ -55,7 +55,7 @@ export default {
       // validate()：对整个表单进行预校验，校验通过执行回调函数
       this.$refs.loginFormRef.validate(async valid => {
         // 判断预验证结果valid是否为true，如为false则抛出错误
-        if (!valid) throw console.log(`表单校验不通过: ${valid}`)
+        if (!valid) throw this.$message.error('表单数据校验不通过，请输入正确账号及密码')
 
         // 发送ajax请求login接口，返回promise对象通过async进行处理，解构赋值返回的data重命名为res
         const { data: res } = await this.$http.post('login', this.loginForm)
@@ -72,7 +72,7 @@ export default {
         // 状态码200，登陆成功
         this.$message({
           showClose: true,
-          message: '恭喜你，登陆成功',
+          message: `登陆成功，欢迎用户：${res.data.username}`,
           type: 'success'
         })
         // 将登陆成功返回的token数据保存到sessionStorage中用于保存当前打开页面登陆成功的状态
