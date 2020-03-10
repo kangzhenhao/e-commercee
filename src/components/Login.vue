@@ -6,7 +6,7 @@
         <img src="../assets/e-logo.png" alt="默认登陆头像" />
       </div>
       <!-- 登陆表单 -->
-      <el-form class="login_form" ref="loginFormRef" :model="loginForm" :rules="loginFormRules">
+      <el-form class="login_form" ref="loginFormRef" :model="loginForm" :rules="loginFormRules" @keyup.enter.native="login">
         <!-- 用户名 -->
         <el-form-item prop="username">
           <el-input placeholder="请输入用户名" prefix-icon="el-icon-user-solid" v-model="loginForm.username"></el-input>
