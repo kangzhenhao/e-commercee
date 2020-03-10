@@ -23,7 +23,8 @@ import {
   Switch,
   Tooltip,
   Pagination,
-  Dialog
+  Dialog,
+  Checkbox
 } from 'element-ui'
 
 Vue.use(Button)
@@ -48,6 +49,7 @@ Vue.use(Switch)
 Vue.use(Tooltip)
 Vue.use(Pagination)
 Vue.use(Dialog)
+Vue.use(Checkbox)
 
 // Message消息提示配置需要全局挂载到vue
 Vue.prototype.$message = Message

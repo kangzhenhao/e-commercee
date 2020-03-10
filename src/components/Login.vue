@@ -15,6 +15,7 @@
         <el-form-item prop="password">
           <el-input placeholder="请输入密码" type="password" prefix-icon="el-icon-message-solid" v-model="loginForm.password"></el-input>
         </el-form-item>
+        <el-checkbox v-model="loginForm.rememberPwd" @change="remember">记住密码</el-checkbox>
         <!-- 按钮 -->
         <el-form-item class="btns">
           <el-button type="primary" @click="login">登陆</el-button>
@@ -31,8 +32,10 @@ export default {
     return {
       // 登陆表单数据绑定对象
       loginForm: {
-        username: 'admin',
-        password: '123456'
+        username: '',
+        password: '',
+        // 是否记住密码
+        rememberPwd: false
       },
       // elementUI - 表单验证规则
       loginFormRules: {
@@ -47,6 +50,20 @@ export default {
           { min: 6, max: 15, message: '密码长度为 6 ~ 15 个字符', trigger: 'blur' }
         ]
       }
+    }
+  },
+  mounted () {
+    if (!window.localStorage.getItem('user')) {
+      return
+    }
+    // 判断是否有记住密码的记录
+    const { username, password, rememberPwd } = JSON.parse(window.localStorage.getItem('user'))
+    if (rememberPwd) {
+      this.loginForm.username = username
+      this.loginForm.password = password
+      this.loginForm.rememberPwd = rememberPwd
+    } else {
+      this.loginForm.username = username
     }
   },
   methods: {
@@ -77,6 +94,15 @@ export default {
         })
         // 将登陆成功返回的token数据保存到sessionStorage中用于保存当前打开页面登陆成功的状态
         window.sessionStorage.setItem('token', res.data.token)
+        // 判断是否选中记住密码
+        if (this.loginForm.rememberPwd === true) {
+          // 记住密码被选中就将数据存储到localStorage中
+          window.localStorage.setItem('user', JSON.stringify(this.loginForm))
+        } else {
+          // 不记住密码时则只保存用户名到localStorage中方便下次登陆加载用户名
+          const user = { username: this.loginForm.username, rememberPwd: this.loginForm.rememberPwd }
+          window.localStorage.setItem('user', JSON.stringify(user))
+        }
         // 登陆成功跳转到home主页
         this.$router.push('/home')
       })
@@ -85,6 +111,10 @@ export default {
     resetLoginForm () {
       // elementUI - form表单对象resetFields方法可以重置表单
       this.$refs.loginFormRef.resetFields()
+    },
+    // 记住密码选框
+    remember () {
+      this.rememberPwd = !this.rememberPwd
     }
   }
 }
@@ -127,7 +157,7 @@ export default {
   }
   .login_form {
     position: absolute;
-    bottom: 15px;
+    bottom: 0px;
     width: 100%;
     padding: 0 20px;
     box-sizing: border-box;
