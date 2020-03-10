@@ -134,7 +134,7 @@ export default {
         // 当前的页码
         pagenum: 1,
         // 当前每页显示多少条数据
-        pagesize: 10
+        pagesize: 5
       },
       // 添加用户对话框显示及隐藏状态
       addUserDialog: false,
@@ -177,6 +177,9 @@ export default {
     // 发送请求获取用户列表
     async getUserList () {
       const { data: res } = await this.$http.get('users', { params: this.queryInfo })
+      if (res.meta.status !== 200) {
+        return this.$message.error('获取用户列表失败，请重试')
+      }
       this.userList = res.data.users
       this.total = res.data.total
     },
