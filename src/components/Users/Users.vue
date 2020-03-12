@@ -2,7 +2,7 @@
   <div>
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/home/welcome' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/home/welcome' }">主界面</el-breadcrumb-item>
       <el-breadcrumb-item>用户管理</el-breadcrumb-item>
       <el-breadcrumb-item>用户列表</el-breadcrumb-item>
     </el-breadcrumb>
@@ -22,7 +22,7 @@
       </el-row>
       <!-- 用户列表区域 -->
       <el-table :data="userList" style="width: 100%" border stripe height="670" @selection-change="selectionChange">
-        <el-table-column type="selection" label="#"></el-table-column>
+        <el-table-column type="selection"></el-table-column>
         <el-table-column type="index" label="#"></el-table-column>
         <el-table-column prop="username" label="用户名" width="180"></el-table-column>
         <el-table-column prop="mobile" label="联系电话"></el-table-column>
@@ -39,8 +39,8 @@
             <el-tooltip class="item" effect="dark" content="修改用户" placement="left" :enterable="false">
               <el-button type="primary" icon="el-icon-edit" size="mini" @click="showModifyUser(scope.row.id)"></el-button>
             </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="分配权限" placement="top" :enterable="false">
-              <el-button type="success" icon="el-icon-setting" size="mini"></el-button>
+            <el-tooltip class="item" effect="dark" content="分配角色" placement="top" :enterable="false">
+              <el-button type="success" icon="el-icon-setting" size="mini" @click="setRole(scope.row)"></el-button>
             </el-tooltip>
             <el-tooltip class="item" effect="dark" content="删除用户" placement="right" :enterable="false">
               <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteUser(scope.row.id, scope.row.username)"></el-button>
@@ -93,6 +93,22 @@
         <el-button type="primary" @click="modifyUser(modifyUserForm)">确 定</el-button>
         <el-button type="info" @click="resetForm('modifyUser')">重置</el-button>
         <el-button @click="modifyUserDialog = false">取 消</el-button>
+      </span>
+    </el-dialog>
+    <!-- 分配角色对话框 -->
+    <el-dialog title="分配角色" :visible.sync="setRoleDialogVisible" width="25%" @close="userInfo = {}">
+      <div>
+        <p>当前用户：{{userInfo.username}}</p>
+        <p>当前角色：{{userInfo.role_name}}</p>
+        <p>分配角色：
+          <el-select v-model="selectedRoleId" placeholder="请选择新角色">
+            <el-option v-for="role in roleList" :key="role.id" :label="role.roleName" :value="role.id"></el-option>
+          </el-select>
+        </p>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="saveRoleInfo">确 定</el-button>
+        <el-button @click="setRoleDialogVisible = false">取 消</el-button>
       </span>
     </el-dialog>
   </div>
@@ -167,7 +183,15 @@ export default {
       // 修改用户表单
       modifyUserForm: {},
       // 多选删除用户数组
-      selectUserList: []
+      selectUserList: [],
+      // 分配权限对话框显示 / 隐藏
+      setRoleDialogVisible: false,
+      // 需要分配角色的用户信息
+      userInfo: {},
+      // 角色列表
+      roleList: [],
+      // 选中的角色id值
+      selectedRoleId: ''
     }
   },
   mounted () {
@@ -300,12 +324,37 @@ export default {
           if (res.meta.status !== 200) {
             return this.$message.error(`删除用户 ${element.username} 失败`)
           }
-          this.getUserList()
         }
+        this.getUserList()
         this.$message.success(`成功删除 ${userNum} 个用户`)
       }).catch(() => { // 取消删除操作
         return this.$message.info('取消删除选中用户')
       })
+    },
+    // 显示设置用户角色对话框
+    async setRole (userInfo) {
+      this.userInfo = userInfo
+      // 展示对话框之前获取所有角色列表
+      const { data: res } = await this.$http.get('roles')
+      if (res.meta.status !== 200) {
+        return this.$message.error('获取角色列表失败')
+      }
+      this.roleList = res.data
+      this.setRoleDialogVisible = true
+    },
+    // 保存用户设置分配角色
+    async saveRoleInfo () {
+      if (!this.selectedRoleId) {
+        return this.$message.warning('请选择要分配的角色')
+      }
+      /* 接口问题：无法正常更新用户角色 */
+      const { data: res } = await this.$http.put(`users/${this.userInfo.id}/role`, { rid: this.selectedRoleId })
+      if (res.meta.status !== 200) {
+        return this.$message.error('设置用户角色失败')
+      }
+      this.$message.success(res.meta.msg)
+      this.setRoleDialogVisible = false
+      this.getUserList()
     }
   }
 }
