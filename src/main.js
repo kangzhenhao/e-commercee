@@ -5,6 +5,8 @@ import './plugins/element.js'
 
 // 引入全局样式表
 import './assets/css/global.css'
+// 引入第三方依赖vue-table-with-tree-grid
+import TreeTable from 'vue-table-with-tree-grid'
 
 import axios from 'axios'
 // 配置axios请求根路径
@@ -18,6 +20,8 @@ axios.interceptors.request.use(config => {
 })
 // 将axios绑定到vue的原型上，这样就可以通过this.$http来使用axios了
 Vue.prototype.$http = axios
+// 将TreeTable注册成全局组件
+Vue.component('tree-table', TreeTable)
 
 Vue.config.productionTip = false
 
