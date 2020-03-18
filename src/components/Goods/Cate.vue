@@ -269,9 +269,6 @@ export default {
 .tree-table {
   margin-top: 19px;
   margin-bottom: 19px;
-  .zk-table__cell-inner {
-    font-size: 15px;
-  }
   .icon {
     font-size: 20px;
   }
