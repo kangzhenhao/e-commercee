@@ -267,7 +267,7 @@ export default {
 }
 </script>
 
-<style lang="less" scope>
+<style lang="less" scoped>
 .el-table {
   .el-button {
     font-size: 14px!important;

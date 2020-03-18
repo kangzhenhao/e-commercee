@@ -265,7 +265,7 @@ export default {
 }
 </script>
 
-<style lang="less" scope>
+<style lang="less" scoped>
 .tree-table {
   margin-top: 19px;
   margin-bottom: 19px;
