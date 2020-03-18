@@ -47,7 +47,7 @@
           <el-input v-model="addCateForm.cat_name" placeholder="请输入分类名称" clearable></el-input>
         </el-form-item>
         <el-form-item label="父级分类：">
-          <el-cascader popper-class="cascaderProps" v-model="selectedKeys" :options="parentCateList"
+          <el-cascader popper-class="cascaderProps" v-model="selecatedKeys" :options="parentCateList"
             :props="cascaderProps" @change="parentCateChange" placeholder="请选择，不选则添加一级分类" clearable>
           </el-cascader>
         </el-form-item>
@@ -140,7 +140,7 @@ export default {
         children: 'children'
       },
       // 级联选择器选中的ID，必须为数组
-      selectedKeys: [],
+      selecatedKeys: [],
       // 编辑分类对话框
       editCateDialogVisible: false,
       // 编辑分类表单
