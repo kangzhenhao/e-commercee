@@ -17,7 +17,7 @@
         </el-col>
         <el-col :span="4">
           <el-button type="primary" @click="addUserDialog = true">添加用户</el-button>
-          <el-button type="danger" @click="deleteSelectUser">删除选中</el-button>
+          <el-button type="danger" @click="deleteSelectUser" :disabled="isDisabled">删除选中</el-button>
         </el-col>
       </el-row>
       <!-- 用户列表区域 -->
@@ -196,6 +196,16 @@ export default {
   },
   mounted () {
     this.getUserList()
+  },
+  computed: {
+    // 删除选中按钮是否禁用
+    isDisabled () {
+      if (this.selectUserList.length > 0) {
+        return false
+      } else {
+        return true
+      }
+    }
   },
   methods: {
     // 发送请求获取用户列表
