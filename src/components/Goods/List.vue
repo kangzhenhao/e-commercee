@@ -25,7 +25,7 @@
         <el-table-column label="商品重量" prop="goods_weight" width="80px" align="center"></el-table-column>
         <el-table-column label="创建时间" prop="add_time" width="180px" align="center">
           <template slot-scope="scope">
-            {{scope.row.add_time | dataFormat}}
+            {{scope.row.add_time | dateFormat}}
           </template>
         </el-table-column>
         <el-table-column label="操作" width="150px" align="center">
@@ -113,7 +113,4 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.el-pagination {
-  margin-top: 20px;
-}
 </style>

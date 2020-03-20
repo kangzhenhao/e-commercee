@@ -30,7 +30,7 @@ Vue.prototype.$http = axios
 Vue.component('tree-table', TreeTable)
 
 // 全局定义时间过滤器
-Vue.filter('dataFormat', function (originVal) {
+Vue.filter('dateFormat', function (originVal) {
   const dt = new Date(originVal)
 
   const y = dt.getFullYear()
