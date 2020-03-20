@@ -370,21 +370,7 @@ export default {
 }
 </script>
 
-<style lang="less" scope>
-.el-breadcrumb {
-  margin-bottom: 15px;
-}
-
-.el-card {
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15)!important;
-  .el-table {
-    margin-top: 15px;
-    .el-button {
-      font-size: 18px;
-    }
-  }
-}
-
+<style lang="less" scoped>
 .el-dialog {
   padding-right: 20px;
 }
