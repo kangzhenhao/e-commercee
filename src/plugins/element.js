@@ -24,6 +24,7 @@ import {
   Tooltip,
   Pagination,
   Dialog,
+  CheckboxGroup,
   Checkbox,
   Tag,
   Tree,
@@ -32,7 +33,10 @@ import {
   Cascader,
   Alert,
   Tabs,
-  TabPane
+  TabPane,
+  Steps,
+  Step,
+  Upload
 } from 'element-ui'
 
 Vue.use(Button)
@@ -57,6 +61,7 @@ Vue.use(Switch)
 Vue.use(Tooltip)
 Vue.use(Pagination)
 Vue.use(Dialog)
+Vue.use(CheckboxGroup)
 Vue.use(Checkbox)
 Vue.use(Tag)
 Vue.use(Tree)
@@ -66,6 +71,9 @@ Vue.use(Cascader)
 Vue.use(Alert)
 Vue.use(Tabs)
 Vue.use(TabPane)
+Vue.use(Steps)
+Vue.use(Step)
+Vue.use(Upload)
 
 // Message消息提示配置需要全局挂载到vue
 Vue.prototype.$message = Message
