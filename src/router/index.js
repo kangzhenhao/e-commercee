@@ -12,6 +12,7 @@ import Params from '../components/Goods/Params.vue'
 import GoodList from '../components/Goods/List.vue'
 import AddGood from '../components/Goods/AddGood.vue'
 import Order from '../components/Order/Order.vue'
+import Report from '../components/Report/Report.vue'
 
 Vue.use(VueRouter)
 
@@ -31,7 +32,8 @@ const routes = [
       { path: '/home/params', component: Params },
       { path: '/home/goods', component: GoodList },
       { path: '/home/addGood', component: AddGood },
-      { path: '/home/orders', component: Order }
+      { path: '/home/orders', component: Order },
+      { path: '/home/reports', component: Report }
     ]
   }
 ]
