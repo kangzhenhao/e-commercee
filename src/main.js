@@ -15,6 +15,7 @@ import 'quill/dist/quill.snow.css' // for snow theme
 import 'quill/dist/quill.bubble.css' // for bubble theme
 
 import axios from 'axios'
+import store from './store'
 // 配置axios请求根路径
 axios.defaults.baseURL = 'https://www.liulongbin.top:8888/api/private/v1'
 // 配置axios请求拦截
@@ -51,5 +52,6 @@ Vue.config.productionTip = false
 
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')

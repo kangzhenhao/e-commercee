@@ -36,7 +36,9 @@ import {
   TabPane,
   Steps,
   Step,
-  Upload
+  Upload,
+  Timeline,
+  TimelineItem
 } from 'element-ui'
 
 Vue.use(Button)
@@ -74,6 +76,8 @@ Vue.use(TabPane)
 Vue.use(Steps)
 Vue.use(Step)
 Vue.use(Upload)
+Vue.use(Timeline)
+Vue.use(TimelineItem)
 
 // Message消息提示配置需要全局挂载到vue
 Vue.prototype.$message = Message
