@@ -9,7 +9,7 @@
     <el-card>
       <el-row>
         <el-col :span="8">
-          <el-input placeholder="请输入要查询的订单号">
+          <el-input v-model="queryInfo.query" placeholder="请输入要查询的订单号" @input="searchOrder">
             <el-button slot="append" icon="el-icon-search"></el-button>
           </el-input>
         </el-col>
@@ -140,6 +140,9 @@ export default {
     },
     resetForm () {
       this.$refs.addressFormRef.resetFields()
+    },
+    searchOrder () {
+      this.getOrderList()
     },
     // 物流进度
     async showProgress () {
