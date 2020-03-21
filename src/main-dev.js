@@ -14,12 +14,18 @@ import 'quill/dist/quill.core.css' // import styles
 import 'quill/dist/quill.snow.css' // for snow theme
 import 'quill/dist/quill.bubble.css' // for bubble theme
 
-import axios from 'axios'
+// 页面顶部加载显示进度条
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
+
 import store from './store'
+import axios from 'axios'
 // 配置axios请求根路径
 axios.defaults.baseURL = 'https://www.liulongbin.top:8888/api/private/v1'
 // 配置axios请求拦截
 axios.interceptors.request.use(config => {
+  // 显示页面顶部进度条
+  NProgress.start()
   // 为请求头对象添加token验证Authorization字段，Authorization字段为调用api接口时获取数据的权限
   config.headers.Authorization = window.sessionStorage.getItem('token')
   // 最后必须返回
@@ -29,6 +35,12 @@ axios.interceptors.request.use(config => {
 Vue.prototype.$http = axios
 // 将TreeTable注册成全局组件
 Vue.component('tree-table', TreeTable)
+
+axios.interceptors.response.use(config => {
+  // 隐藏页面顶部进度条
+  NProgress.done()
+  return config
+})
 
 // 全局定义时间过滤器
 Vue.filter('dateFormat', function (originVal) {

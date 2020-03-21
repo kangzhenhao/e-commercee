@@ -213,7 +213,6 @@ export default {
             roleName: this.editRoleForm.roleName,
             roleDesc: this.editRoleForm.roleDesc
           })
-          console.log('editRole -> res', res)
           if (res.meta.status !== 200) {
             return this.$message.error('编辑角色失败，请重试')
           }
@@ -255,7 +254,6 @@ export default {
         const userNum = this.selectRoleList.length
         for (let i = 0; i < this.selectRoleList.length; i++) {
           const element = this.selectRoleList[i]
-          console.log(element)
           // 发送请求删除角色
           const { data: res } = await this.$http.delete(`roles/${element.id}`)
           if (res.meta.status !== 200) {

@@ -150,7 +150,7 @@ export default {
         // 当前的页码
         pagenum: 1,
         // 当前每页显示多少条数据
-        pagesize: 5
+        pagesize: 10
       },
       // 添加用户对话框显示及隐藏状态
       addUserDialog: false,
@@ -280,7 +280,6 @@ export default {
     },
     // 修改用户
     modifyUser (info) {
-      console.log(1)
       this.$refs.modifyUserFormRef.validate(async valid => {
         if (!valid) {
           return this.$message.error('表单预验证失败，请输入正确信息')
