@@ -15,7 +15,7 @@
             <el-button slot="append" icon="el-icon-search" @click="getUserList"></el-button>
           </el-input>
         </el-col>
-        <el-col :span="4">
+        <el-col :span="8">
           <el-button type="primary" @click="addUserDialog = true">添加用户</el-button>
           <el-button type="danger" @click="deleteSelectUser" :disabled="isDisabled">删除选中</el-button>
         </el-col>

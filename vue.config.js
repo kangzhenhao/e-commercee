@@ -1,21 +1,28 @@
 module.exports = {
-  productionSourceMap: false,
   chainWebpack: config => {
+    // 生产环境打包入口
     config.when(process.env.NODE_ENV === 'production', config => {
       config.entry('app').clear().add('./src/main-prod.js')
-      // config.set('externals', {
-      //   vue: 'Vue',
-      //   'vue-router': 'VueRouter',
-      //   vuex: 'Vuex',
-      //   axios: 'axios',
-      //   lodash: '_',
-      //   echarts: 'echarts',
-      //   nprogress: 'NProgress',
-      //   'vue-quill-editor': 'VueQuillEditor'
-      // })
+      config.set('externals', {
+        vue: 'Vue',
+        axios: 'axios',
+        lodash: '_',
+        echarts: 'echarts',
+        nprogress: 'NProgress',
+        'vue-quill-editor': 'VueQuillEditor'
+      })
+      config.plugin('html').tap(args => {
+        args[0].isProd = true
+        return args
+      })
     })
+    // 开发模式打包入口
     config.when(process.env.NODE_ENV === 'development', config => {
       config.entry('app').clear().add('./src/main-dev.js')
+      config.plugin('html').tap(args => {
+        args[0].isProd = false
+        return args
+      })
     })
   }
 }

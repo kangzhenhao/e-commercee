@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import './plugins/element.js'
+// import './plugins/element.js'
 import VueQuillEditor from 'vue-quill-editor'
 
 // 引入全局样式表
@@ -9,14 +9,8 @@ import './assets/css/global.css'
 // 引入第三方依赖vue-table-with-tree-grid
 import TreeTable from 'vue-table-with-tree-grid'
 
-// 引入富文本编辑器组件样式
-import 'quill/dist/quill.core.css' // import styles
-import 'quill/dist/quill.snow.css' // for snow theme
-import 'quill/dist/quill.bubble.css' // for bubble theme
-
 // 页面顶部加载显示进度条
 import NProgress from 'nprogress'
-import 'nprogress/nprogress.css'
 
 import store from './store'
 import axios from 'axios'
